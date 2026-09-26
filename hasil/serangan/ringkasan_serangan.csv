@@ -1,0 +1,37 @@
+Serangan,Skenario,Model,Panjang (huruf),Jumlah kunci,Success rate (%),Terbaca >=95% (%),Kemiripan median,Kunci persis (%),Waktu median (s),Waktu maks (s),Kandidat dicoba (median),Kerja efektif (bit),Ruang kunci nominal (bit)
+3A,Vigenere,ciphertext-only,50,50,48.0,48.0,0.8,48.0,0.0192,0.0288,312.0,8.3,23.5
+3A,Vigenere,ciphertext-only,100,50,92.0,92.0,1.0,92.0,0.057,0.0909,520.0,9.0,23.5
+3A,Vigenere,ciphertext-only,200,50,100.0,100.0,1.0,100.0,0.0554,0.0803,520.0,9.0,23.5
+3A,Vigenere,ciphertext-only,500,50,100.0,100.0,1.0,100.0,0.0843,0.1302,520.0,9.0,23.5
+3A,Vigenere,ciphertext-only,1000,50,100.0,100.0,1.0,100.0,0.0959,0.1544,520.0,9.0,23.5
+3B,Transposisi,ciphertext-only,50,50,90.0,98.0,1.0,90.0,0.0206,0.0319,720.0,9.5,9.5
+3B,Transposisi,ciphertext-only,100,50,86.0,100.0,1.0,86.0,0.0332,0.0503,720.0,9.5,9.5
+3B,Transposisi,ciphertext-only,200,50,86.0,100.0,1.0,86.0,0.0574,0.0772,720.0,9.5,9.5
+3B,Transposisi,ciphertext-only,500,50,86.0,100.0,1.0,86.0,0.1506,0.2062,720.0,9.5,9.5
+3B,Transposisi,ciphertext-only,1000,50,82.0,100.0,1.0,82.0,0.2997,0.3632,720.0,9.5,9.5
+3C,Hill,known-plaintext,9,50,0.0,0.0,0.0,0.0,0.0,0.0,0,,40.6
+3C,Hill,known-plaintext,12,50,0.0,0.0,0.0,0.0,0.0,0.0,0,,40.6
+3C,Hill,known-plaintext,15,50,64.0,64.0,1.0,64.0,0.0001,0.0001,1.0,0.0,40.6
+3C,Hill,known-plaintext,18,50,74.0,74.0,1.0,74.0,0.0001,0.0002,1,0.0,40.6
+3C,Hill,known-plaintext,24,50,94.0,94.0,1.0,94.0,0.0001,0.0003,1,0.0,40.6
+3C,Hill,known-plaintext,30,50,96.0,96.0,1.0,96.0,0.0001,0.0004,1.0,0.0,40.6
+3C,Hill,known-plaintext,60,50,100.0,100.0,1.0,100.0,0.0002,0.001,1.0,0.0,40.6
+3D,Vigenere + Hill,known-plaintext,15,50,0.0,0.0,0.0,0.0,0.0,0.0001,0,,64.1
+3D,Vigenere + Hill,known-plaintext,30,50,76.0,76.0,1.0,76.0,0.0004,0.0007,5.0,2.3,64.1
+3D,Vigenere + Hill,known-plaintext,45,50,100.0,100.0,1.0,100.0,0.0005,0.0013,5.0,2.3,64.1
+3D,Vigenere + Hill,known-plaintext,60,50,100.0,100.0,1.0,100.0,0.0007,0.0019,5.0,2.3,64.1
+3D,Vigenere + Hill,known-plaintext,90,50,100.0,100.0,1.0,100.0,0.0014,0.0055,5.0,2.3,64.1
+3D,Vigenere + Hill,known-plaintext,120,50,100.0,100.0,1.0,100.0,0.0022,0.0154,5.0,2.3,64.1
+3D,Vigenere + Hill,known-plaintext,150,50,100.0,100.0,1.0,100.0,0.0024,0.0091,5.0,2.3,64.1
+3D,Vigenere + Hill,known-plaintext,300,50,100.0,100.0,1.0,100.0,0.0035,0.0107,5.0,2.3,64.1
+3E-HT,Hill + Transposisi,known-plaintext,60,50,100.0,100.0,1.0,100.0,0.0764,0.8943,720.0,9.5,50.1
+3E-HT,Hill + Transposisi,known-plaintext,150,50,100.0,100.0,1.0,100.0,0.0886,2.7778,720.0,9.5,50.1
+3E-HT,Hill + Transposisi,known-plaintext,300,50,100.0,100.0,1.0,100.0,0.1382,1.7245,720.0,9.5,50.1
+3E-HT,Hill + Transposisi,known-plaintext,1000,50,100.0,100.0,1.0,100.0,0.2438,2.3695,720.0,9.5,50.1
+3E-VHT,Vigenere + Hill + Transposisi,known-plaintext,60,50,100.0,100.0,1.0,100.0,1.2679,2.3384,14310.0,13.8,73.6
+3E-VHT,Vigenere + Hill + Transposisi,known-plaintext,150,50,100.0,100.0,1.0,100.0,5.2709,22.1585,14310.0,13.8,73.6
+3E-VHT,Vigenere + Hill + Transposisi,known-plaintext,300,50,100.0,100.0,1.0,100.0,6.5283,13.8331,14310.0,13.8,73.6
+3E-VHT,Vigenere + Hill + Transposisi,known-plaintext,1000,50,100.0,100.0,1.0,100.0,7.645,17.2917,14310.0,13.8,73.6
+3F,Vigenere + Transposisi,ciphertext-only,200,50,78.0,90.0,1.0,78.0,0.9457,1.07,5920.0,12.5,33.0
+3F,Vigenere + Transposisi,ciphertext-only,500,50,86.0,96.0,1.0,86.0,1.3159,1.388,5920.0,12.5,33.0
+3F,Vigenere + Transposisi,ciphertext-only,1000,50,78.0,98.0,1.0,78.0,1.7272,2.0783,5920.0,12.5,33.0

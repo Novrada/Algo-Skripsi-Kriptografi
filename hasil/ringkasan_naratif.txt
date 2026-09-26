@@ -1,0 +1,57 @@
+======================================================================
+RINGKASAN NARATIF HASIL PERBANDINGAN
+======================================================================
+
+Skenario paling unggul pada tiap metrik:
+  - Waktu enkripsi tercepat : 3. Transposisi Kolom
+  - Waktu dekripsi tercepat : 3. Transposisi Kolom
+  - Waktu enkripsi terlambat: 7. Vigenere + Hill + Transposisi
+  - IC paling acak (aman)   : 4. Vigenere + Hill (IC 0.0388)
+  - Entropi tertinggi        : 4. Vigenere + Hill (4.6767 bit)
+  - Avalanche terbaik        : 4. Vigenere + Hill (0.29%)
+  - Ruang kunci terbesar     : 7. Vigenere + Hill + Transposisi (1.40 x 10^22 (~2^73.6 bit))
+
+Trade-off keamanan vs waktu proses:
+  * Algoritma tunggal cepat, tetapi keamanannya terbatas:
+    - Transposisi Kolom hanya menyusun ulang posisi sehingga
+      distribusi frekuensi huruf TIDAK berubah (IC ciphertext
+      sama dengan IC plaintext), mudah diserang analisis
+      frekuensi.
+    - Vigenere meratakan frekuensi (IC mendekati acak), tetapi
+      dengan kunci pendek masih rentan terhadap serangan
+      Kasiski/Friedman.
+    - Hill menyamarkan frekuensi per blok, tetapi ruang kunci
+      bergantung ukuran matriks dan rentan known-plaintext.
+  * Kombinasi (Multiple Super Encryption) meningkatkan keamanan
+    (IC mendekati acak, entropi mendekati maksimum, ruang kunci
+    berlipat ganda), namun menambah waktu proses karena setiap
+    lapisan memproses ulang seluruh teks.
+  * Skenario kombinasi penuh (Vigenere + Hill + Transposisi)
+    memberikan ruang kunci gabungan terbesar (perkalian ruang
+    kunci ketiga algoritma). IC dan entropinya setara dengan
+    Vigenere + Hill karena transposisi tidak mengubah distribusi
+    frekuensi, tetapi lapisan transposisi tetap menambah
+    keamanan terhadap analisis posisi dengan biaya waktu proses
+    yang lebih tinggi dibandingkan algoritma tunggal.
+
+Analisis dispersi posisi (position dispersion):
+  * stdev posisi: rata-rata DENGAN transposisi = 114.97 vs TANPA = 0.66.
+  * mean gap: rata-rata DENGAN transposisi = 116.90 vs TANPA = 0.73.
+  * Perbandingan berpasangan (tanpa vs dengan transposisi):
+    - 1. Vigenere vs 5. Vigenere + Transposisi : stdev 0.00 -> 0.00 (sama); mean gap 0.00 -> 0.00 (sama)
+    - 2. Hill vs 6. Hill + Transposisi : stdev 0.98 -> 229.95 (LEBIH TINGGI); mean gap 1.10 -> 233.80 (LEBIH TINGGI)
+    - 4. Vigenere + Hill vs 7. Vigenere + Hill + Transposisi : stdev 0.98 -> 229.95 (LEBIH TINGGI); mean gap 1.10 -> 233.80 (LEBIH TINGGI)
+  * Skenario dengan transposisi: 3. Transposisi Kolom, 5. Vigenere + Transposisi, 6. Hill + Transposisi, 7. Vigenere + Hill + Transposisi.
+  * Skenario tanpa transposisi: 1. Vigenere, 2. Hill, 4. Vigenere + Hill.
+  * Catatan: dispersi hanya naik pada pasangan yang menyertakan
+    Hill. Transposisi tunggal dan Vigenere+Transposisi tetap 0
+    karena membalik 1 karakter plaintext hanya mengubah 1 posisi
+    ciphertext (tidak ada >1 posisi untuk 'disebarkan'). Dengan
+    kata lain transposisi memperbesar sebaran HANYA bila sudah
+    ada banyak posisi yang berubah (yang disediakan oleh Hill).
+
+Catatan ruang kunci gabungan:
+  * Perkalian ruang kunci tiap lapisan adalah ukuran teoretis
+    terhadap brute force naif dan TIDAK menjamin ketahanan
+    terhadap serangan canggih seperti meet-in-the-middle attack.
+

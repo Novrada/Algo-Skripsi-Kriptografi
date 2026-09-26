@@ -1,0 +1,10 @@
+Skenario,Waktu Enkripsi 1000 kar (ms),Entropi Ternormalisasi,Rasio IC,Avalanche Ternormalisasi,Ruang Kunci Nominal (bit)
+1. Vigenere,0.2691,0.97276,1.1674,0.00104,23.5
+2. Hill,1.3404,0.989822,1.0426,0.002912,40.57
+3. Transposisi Kolom,0.0875,0.815073,2.4518,0.00104,9.49
+4. Vigenere + Hill,1.5369,0.994949,1.0088,0.003016,64.07
+5. Vigenere + Transposisi,0.3431,0.97276,1.1674,0.00104,32.99
+6. Hill + Transposisi,1.2922,0.989822,1.0426,0.002912,50.06
+7. Vigenere + Hill + Transposisi,1.6558,0.994949,1.0088,0.002912,73.57
+AES-128,0.012722,0.995287,1.001455,0.99975,128
+AES-256,0.012927,0.995502,0.998066,1.001328,256

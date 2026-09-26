@@ -1,0 +1,8 @@
+Skenario,Ruang Kunci,Ruang Kunci (bit),Estimasi Brute Force (10^9/detik)
+1. Vigenere,11881376,23.5,11.881 milidetik
+2. Hill,1634038189056,40.57,27.23 menit
+3. Transposisi Kolom,720,9.49,0.720 mikrodetik
+4. Vigenere + Hill,19414622122533421056,64.07,615.21 tahun
+5. Vigenere + Transposisi,8554590720,32.99,8.555 detik
+6. Hill + Transposisi,1176507496120320,50.06,13.62 hari
+7. Vigenere + Hill + Transposisi,13978527928224063160320,73.57,4.43e+05 tahun

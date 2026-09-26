@@ -1,0 +1,8 @@
+Tanggal       : 2026-09-25 18:27
+Python        : 3.14.7
+Platform      : Linux-7.2.6-arch2-1-x86_64-with-glibc2.44
+Prosesor      : 
+Seed          : 2026
+Jumlah kunci  : 50
+Korpus ref.   : fallback: UU ITE + UU PDP (sample_data) (10861 huruf)
+Pool plaintext: 7319 huruf

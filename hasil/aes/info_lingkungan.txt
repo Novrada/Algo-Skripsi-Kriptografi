@@ -1,0 +1,11 @@
+Tanggal           : 2026-09-25 18:33
+Python            : 3.14.7
+cryptography      : 50.0.1
+OS                : Linux-7.2.6-arch2-1-x86_64-with-glibc2.44
+CPU               : Intel(R) Core(TM) i5-10300H CPU @ 2.50GHz
+Seed              : 2026
+Plaintext         : sample_data.build_sample_sets([50, 100, 500, 1000, 5000], 3)
+Protokol waktu    : 3 sampel, warm-up 3, 100x (30x utk 5000), gc off, perf_counter
+Avalanche bit     : 50 kunci x 20 posisi = 1000 percobaan
+Avalanche pesan   : 100 percobaan, 1000 karakter, CBC
+Entropi acuan     : 100x 5000 byte os.urandom

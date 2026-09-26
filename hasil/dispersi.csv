@@ -1,0 +1,8 @@
+Skenario,Dispersi Stdev Posisi,Stdev dari Stdev,Mean Gap Posisi,Stdev dari Mean Gap,Percobaan
+1. Vigenere,0.0,0.0,0.0,0.0,10
+2. Hill,0.9828,0.3859,1.1,0.5676,10
+3. Transposisi Kolom,0.0,0.0,0.0,0.0,10
+4. Vigenere + Hill,0.9828,0.3859,1.1,0.5676,10
+5. Vigenere + Transposisi,0.0,0.0,0.0,0.0,10
+6. Hill + Transposisi,229.9475,116.421,233.8,102.6443,10
+7. Vigenere + Hill + Transposisi,229.9475,116.421,233.8,102.6443,10
