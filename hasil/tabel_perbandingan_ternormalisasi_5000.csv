@@ -1,0 +1,10 @@
+Skenario,Entropi/ideal (5000),Rasio IC (5000),Avalanche/ideal,"Waktu enkripsi 1000 (ms, laptop)"
+1. Vigenere,0.973,1.177,0.001,0.2691
+2. Hill,0.994,1.035,0.0029,1.3404
+3. Transposisi Kolom,0.829,2.302,0.001,0.0875
+4. Vigenere + Hill,0.997,1.013,0.0029,1.5369
+5. Vigenere + Transposisi,0.973,1.177,0.001,0.3431
+6. Hill + Transposisi,0.994,1.035,0.0029,1.2922
+7. Vigenere + Hill + Transposisi,0.997,1.013,0.0029,1.6558
+AES-128,0.995,1.001,0.99975,0.012722
+AES-256,0.996,0.998,1.001328,0.012927

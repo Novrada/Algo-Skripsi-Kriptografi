@@ -8,7 +8,7 @@ Skenario paling unggul pada tiap metrik:
   - Waktu enkripsi terlambat: 7. Vigenere + Hill + Transposisi
   - IC paling acak (aman)   : 4. Vigenere + Hill (IC 0.0388)
   - Entropi tertinggi        : 4. Vigenere + Hill (4.6767 bit)
-  - Avalanche terbaik        : 4. Vigenere + Hill (0.29%)
+  - Avalanche terbaik        : 2. Hill (0.28%)
   - Ruang kunci terbesar     : 7. Vigenere + Hill + Transposisi (1.40 x 10^22 (~2^73.6 bit))
 
 Trade-off keamanan vs waktu proses:

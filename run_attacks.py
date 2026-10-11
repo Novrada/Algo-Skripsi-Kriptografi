@@ -63,6 +63,7 @@ LENGTHS = {
     "3E-HT": [60, 150, 300, 1000],           # panjang pesan known-plaintext
     "3E-VHT": [60, 150, 300, 1000],
     "3F": [200, 500, 1000],
+    "3B-K": [500, 1000],                      # transposisi, jumlah kolom 2-8
 }
 
 SCENARIO_OF = {
@@ -73,9 +74,10 @@ SCENARIO_OF = {
     "3E-HT": ["Hill", "Transposisi"],
     "3E-VHT": ["Vigenere", "Hill", "Transposisi"],
     "3F": ["Vigenere", "Transposisi"],
+    "3B-K": ["Transposisi"],
 }
 
-MODEL_OF = {k: ("ciphertext-only" if k in ("3A", "3B", "3F")
+MODEL_OF = {k: ("ciphertext-only" if k in ("3A", "3B", "3F", "3B-K")
                 else "known-plaintext") for k in SCENARIO_OF}
 
 
@@ -138,6 +140,17 @@ def run_trial(attack_id, length, trial, pool, lm):
     elif attack_id == "3B":
         with Timer() as t:
             r = ca.attack_transposition(body, lm, (TRANS_COLS,))
+        sim = similarity(r["plaintext"], pt)
+        row.update(success=r["plaintext"] == pt, similarity=round(sim, 4),
+                   readable=sim >= NEAR_THRESHOLD,
+                   recovered_order="".join(map(str, r["order"])),
+                   key_exact=tuple(r["order"]) == keys["transposition_order"],
+                   candidates_tried=r["candidates_tried"])
+
+    elif attack_id == "3B-K":
+        # jumlah kolom TIDAK diketahui: dicari 2..8 (2!+...+8! = 46.232 urutan)
+        with Timer() as t:
+            r = ca.attack_transposition(body, lm, tuple(range(2, 9)))
         sim = similarity(r["plaintext"], pt)
         row.update(success=r["plaintext"] == pt, similarity=round(sim, 4),
                    readable=sim >= NEAR_THRESHOLD,
@@ -208,6 +221,17 @@ def run_trial(attack_id, length, trial, pool, lm):
 # ---------------------------------------------------------------------------
 # Ringkasan
 # ---------------------------------------------------------------------------
+def wilson_interval(k, n, z=1.96):
+    """Interval kepercayaan Wilson (persen) untuk proporsi k/n."""
+    if n == 0:
+        return 0.0, 0.0
+    p = k / n
+    denom = 1 + z * z / n
+    center = (p + z * z / (2 * n)) / denom
+    half = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / denom
+    return 100 * max(0.0, center - half), 100 * min(1.0, center + half)
+
+
 def summarize(rows):
     out = []
     keys = sorted({(r["attack"], r["length"]) for r in rows},
@@ -226,6 +250,10 @@ def summarize(rows):
             "Jumlah kunci": len(rs),
             "Success rate (%)": round(100 * sum(r["success"] for r in rs)
                                       / len(rs), 1),
+            "CI95 Wilson bawah (%)": round(wilson_interval(
+                sum(bool(r["success"]) for r in rs), len(rs))[0], 1),
+            "CI95 Wilson atas (%)": round(wilson_interval(
+                sum(bool(r["success"]) for r in rs), len(rs))[1], 1),
             "Terbaca >=95% (%)": round(100 * sum(bool(r.get("readable", r["success"])) for r in rs) / len(rs), 1),
             "Kemiripan median": round(statistics.median(r.get("similarity", 1.0 if r["success"] else 0.0) for r in rs), 4),
             "Kunci persis (%)": round(100 * sum(bool(r.get("key_exact"))
@@ -257,19 +285,20 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--keys", type=int, default=N_KEYS)
     ap.add_argument("--only", type=str, default="")
+    ap.add_argument("--out", type=str, default=OUTPUT_DIR)
     args = ap.parse_args()
     selected = [a.strip() for a in args.only.split(",") if a.strip()] \
-        or list(SCENARIO_OF)
+        or [a for a in SCENARIO_OF if a != "3B-K"]
     for a in selected:
         if a not in SCENARIO_OF:
             raise SystemExit("ID serangan tidak dikenal: " + a)
 
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    os.makedirs(args.out, exist_ok=True)
     ref, ref_src = reference_text()
     lm = LanguageModel(ref, n=3)
     pool = attack_plaintext_pool()
 
-    with open(os.path.join(OUTPUT_DIR, "info_eksperimen.txt"), "w",
+    with open(os.path.join(args.out, "info_eksperimen.txt"), "w",
               encoding="utf-8") as f:
         f.write("Tanggal       : {}\n".format(time.strftime("%Y-%m-%d %H:%M")))
         f.write("Python        : {}\n".format(platform.python_version()))
@@ -297,13 +326,13 @@ def main():
                       100 * sum(r["success"] for r in rs) / len(rs),
                       statistics.median(r["time_s"] for r in rs),
                       time.perf_counter() - t0))
-        write_csv(os.path.join(OUTPUT_DIR,
+        write_csv(os.path.join(args.out,
                                "serangan_{}.csv".format(attack_id)), rows)
         all_rows.extend(rows)
 
     summary = summarize(all_rows)
-    write_csv(os.path.join(OUTPUT_DIR, "ringkasan_serangan.csv"), summary)
-    print("\nHasil ditulis ke", OUTPUT_DIR)
+    write_csv(os.path.join(args.out, "ringkasan_serangan.csv"), summary)
+    print("\nHasil ditulis ke", args.out)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,78 @@
+ANALISIS SIMPANGAN BAKU AVALANCHE KUNCI TRANSPOSISI
+Skenario : 3. Transposisi Kolom, 6. Hill + Transposisi
+Seed     : 2027 (sama dengan main_comparison.AVALANCHE_SEED_KEY)
+Plaintext: acuan 1000 huruf
+
+======================================================================
+3. Transposisi Kolom  (kunci transposisi 'KRIPTO')
+======================================================================
+ no  pos asli ganti   sebelum   sesudah  pindah  kendall  avalanche
+  1    0    K    C    205314    025314       2       14   31.0000%
+  2    0    K    U    205314    253140       5       11   75.8000%
+  3    2    I    Z    205314    053142       6       10   91.8000%
+  4    3    P    U    205314    205143       3       13   44.5000%
+  5    1    R    M    205314    201534       3       13   46.0000%
+  6    1    R    L    205314    201534       3       13   46.0000%
+  7    4    T    F    205314    420531       6       10   92.0000%
+  8    2    I    V    205314    053142       6       10   91.8000%
+  9    4    T    C    205314    420531       6       10   92.0000%
+ 10    5    O    V    205314    203145       4       12   60.9000%
+
+  rata-rata avalanche   : 67.1800%
+  simpangan baku        : 24.2181%
+  rentang avalanche     : 31.0000% .. 92.0000%
+  kolom berpindah       : min 2 maks 6 (nilai: 2, 5, 6, 3, 3, 3, 6, 6, 6, 4)
+  kendall tau           : min 10 maks 14
+  korelasi Pearson (kolom berpindah vs avalanche): 0.9998
+  korelasi Pearson (kendall tau vs avalanche)    : -0.9998
+  UJI KEPEKAAN 200 percobaan (bukan angka paper):
+    rata-rata 55.9210%  simpangan baku 21.8662%
+    korelasi (kolom berpindah vs avalanche): 0.9992
+
+======================================================================
+6. Hill + Transposisi  (kunci transposisi 'KRIPTO')
+======================================================================
+ no  pos asli ganti   sebelum   sesudah  pindah  kendall  avalanche
+  1    0    K    C    205314    025314       2       14   31.1817%
+  2    0    K    U    205314    253140       5       11   80.6356%
+  3    2    I    Z    205314    053142       6       10   96.0278%
+  4    3    P    U    205314    205143       3       13   47.8649%
+  5    1    R    M    205314    201534       3       13   47.8649%
+  6    1    R    L    205314    201534       3       13   47.8649%
+  7    4    T    F    205314    420531       6       10   96.0278%
+  8    2    I    V    205314    053142       6       10   96.0278%
+  9    4    T    C    205314    420531       6       10   96.0278%
+ 10    5    O    V    205314    203145       4       12   63.6544%
+
+  rata-rata avalanche   : 70.3178%
+  simpangan baku        : 25.4709%
+  rentang avalanche     : 31.1817% .. 96.0278%
+  kolom berpindah       : min 2 maks 6 (nilai: 2, 5, 6, 3, 3, 3, 6, 6, 6, 4)
+  kendall tau           : min 10 maks 14
+  korelasi Pearson (kolom berpindah vs avalanche): 0.9999
+  korelasi Pearson (kendall tau vs avalanche)    : -0.9999
+  UJI KEPEKAAN 200 percobaan (bukan angka paper):
+    rata-rata 58.1931%  simpangan baku 22.8367%
+    korelasi (kolom berpindah vs avalanche): 0.9999
+
+======================================================================
+VERIFIKASI terhadap hasil/avalanche.csv
+======================================================================
+  3. Transposisi Kolom     mean 67.18 vs 67.18 | stdev 24.2181 vs 24.2181 -> COCOK
+  6. Hill + Transposisi    mean 70.3178 vs 70.3178 | stdev 25.4709 vs 25.4709 -> COCOK
+
+KESIMPULAN (hanya dari angka di atas)
+  3. Transposisi Kolom
+    avalanche 10 percobaan : 67.1800% +/- 24.2181%
+    dugaan 'simpangan baku besar karena variasi besar perubahan urutan kolom': didukung (|r| >= 0,7)
+    korelasi kolom berpindah vs avalanche : 0.9998
+    korelasi kendall tau vs avalanche     : -0.9998
+    uji kepekaan 200 percobaan            : 55.9210% +/- 21.8662% (korelasi 0.9992)
+  6. Hill + Transposisi
+    avalanche 10 percobaan : 70.3178% +/- 25.4709%
+    dugaan 'simpangan baku besar karena variasi besar perubahan urutan kolom': didukung (|r| >= 0,7)
+    korelasi kolom berpindah vs avalanche : 0.9999
+    korelasi kendall tau vs avalanche     : -0.9999
+    uji kepekaan 200 percobaan            : 58.1931% +/- 22.8367% (korelasi 0.9999)
+
+Reproduksi angka paper (10 percobaan): SEMUA COCOK

@@ -36,6 +36,8 @@ SIZES = [50, 100, 500, 1000, 5000]
 REFERENCE_SIZE = 1000          # ukuran acuan untuk tabel ringkasan (waktu)
 SAMPLES_PER_SIZE = 3           # banyak sampel plaintext berbeda per ukuran
 AVALANCHE_TRIALS = 10          # banyak posisi flip acak per pengukuran avalanche
+AVALANCHE_SEED_PLAINTEXT = 2026  # seed posisi flip plaintext
+AVALANCHE_SEED_KEY = 2027        # seed posisi flip kunci
 DISPERSION_TRIALS = 10         # banyak posisi flip acak per pengukuran dispersi
 DISPERSION_SEED = 12345        # seed agar hasil dispersi dapat direproduksi
 
@@ -135,9 +137,10 @@ def run_avalanche(plaintexts, trials=AVALANCHE_TRIALS):
     text = plaintexts[REFERENCE_SIZE]
     avalanche = {}
     for scenario in algorithms.SCENARIOS:
-        p_mean, p_std = ev.avalanche_effect_stats(scenario, text, trials=trials)
-        k_mean, k_std = ev.key_avalanche_effect_stats(scenario, text,
-                                                      trials=trials)
+        p_mean, p_std = ev.avalanche_effect_stats(
+            scenario, text, trials=trials, seed=AVALANCHE_SEED_PLAINTEXT)
+        k_mean, k_std = ev.key_avalanche_effect_stats(
+            scenario, text, trials=trials, seed=AVALANCHE_SEED_KEY)
         avalanche[scenario.name] = {
             "plaintext_mean": p_mean,
             "plaintext_stdev": p_std,

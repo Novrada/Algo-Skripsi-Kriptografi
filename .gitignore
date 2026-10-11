@@ -1,2 +1,8 @@
 __pycache__/
 *.pyc
+
+# cadangan hasil run lama (lokal saja, jangan di-commit)
+hasil_lama/
+
+# paket tambalan dan arsip hasil (lokal saja)
+*.zip

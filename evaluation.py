@@ -301,22 +301,26 @@ def _mean_stdev(values):
     return mean, 0.0
 
 
-def avalanche_effect_stats(scenario, plaintext, trials=10):
+def avalanche_effect_stats(scenario, plaintext, trials=10, seed=None):
     """Jalankan :func:`avalanche_effect` ``trials`` kali (posisi acak berbeda).
 
     Returns:
         tuple: ``(mean_percent, stdev_percent)``.
     """
+    if seed is not None:
+        random.seed(seed)
     values = [avalanche_effect(scenario, plaintext) for _ in range(trials)]
     return _mean_stdev(values)
 
 
-def key_avalanche_effect_stats(scenario, plaintext, trials=10):
+def key_avalanche_effect_stats(scenario, plaintext, trials=10, seed=None):
     """Jalankan :func:`key_avalanche_effect` ``trials`` kali (posisi acak berbeda).
 
     Returns:
         tuple: ``(mean_percent, stdev_percent)``.
     """
+    if seed is not None:
+        random.seed(seed)
     values = [key_avalanche_effect(scenario, plaintext) for _ in range(trials)]
     return _mean_stdev(values)
 
