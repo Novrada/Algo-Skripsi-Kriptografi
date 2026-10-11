@@ -190,8 +190,9 @@ class Scenario:
                 self.name, self.components,
                 vigenere_key=self._vigenere_key,
                 hill_matrix=self._hill_matrix, hill_inverse=self._hill_inverse,
-                transposition_key=_flip_key_string(self._transposition_key,
-                                                   position),
+                transposition_key=_flip_key_string(
+                    self._transposition_key, position,
+                    require_order_change=True),
             )
         if self._hill_matrix is not None:
             new_matrix = _flip_hill_matrix(self._hill_matrix, position)
@@ -265,8 +266,14 @@ def _build_scenario(name, components, vigenere_key=None, hill_matrix=None,
                     transposition_key=transposition_key)
 
 
-def _flip_key_string(key, position=None):
-    """Kembalikan salinan *key* dengan satu karakter (pada *position*) diganti."""
+def _flip_key_string(key, position=None, require_order_change=False):
+    """Kembalikan salinan *key* dengan satu karakter (pada *position*) diganti.
+
+    Bila ``require_order_change`` bernilai True (dipakai untuk kunci
+    transposisi), huruf pengganti dipilih sehingga urutan kolom benar-benar
+    berubah; penggantian yang mempertahankan urutan abjad menghasilkan kunci
+    ekuivalen (ciphertext identik) dan tidak mengukur kepekaan terhadap kunci.
+    """
     if position is None:
         position = random.randrange(len(key))
     if not 0 <= position < len(key):
@@ -276,8 +283,17 @@ def _flip_key_string(key, position=None):
     chars = list(key)
     original = chars[position]
     replacement = original
-    while replacement == original:
+    while True:
         replacement = random.choice(ALPHABET)
+        if replacement == original:
+            continue
+        if require_order_change:
+            trial = chars[:]
+            trial[position] = replacement
+            if (transposition._column_order("".join(trial))
+                    == transposition._column_order(key)):
+                continue
+        break
     chars[position] = replacement
     return "".join(chars)
 

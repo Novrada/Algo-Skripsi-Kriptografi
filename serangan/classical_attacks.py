@@ -80,7 +80,9 @@ def attack_vigenere(ciphertext, lm, max_period=20):
     for sc, period, shifts, pt in results:          # urut periode naik
         if sc >= best_score - PERIOD_TOLERANCE:
             return {"key": to_str(shifts), "period": period, "plaintext": pt,
-                    "score": sc, "candidates_tried": max_period * 26}
+                    "score": sc,
+                    # tiap periode p mengevaluasi p kolom x 26 pergeseran
+                    "candidates_tried": 26 * sum(range(1, max_period + 1))}
 
 
 # ---------------------------------------------------------------------------

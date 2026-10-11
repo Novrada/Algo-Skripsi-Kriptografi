@@ -1,0 +1,56 @@
+ANALISIS KEGAGALAN A2 (3B transposisi): success=False, readable=True
+Sumber   : hasil/serangan/serangan_3B.csv
+Panjang  : 100, 200, 500, 1000
+Jumlah percobaan yang dianalisis: 30
+
+Tabel 1. Sebaran per panjang teks
+ panjang    mod 6  total uji   gagal+baca         persen
+     100        4         50            7          14.0%
+     200        2         50            7          14.0%
+     500        2         50            7          14.0%
+    1000        4         50            9          18.0%
+
+Tabel 2. Pemeriksaan tiap dugaan (30 percobaan)
+  D1 semua huruf beda di baris terakhir tak penuh        0/30  =   0.0%
+  D2 urutan hasil = rotasi urutan asli                   1/30  =   3.3%
+  D3 urutan hasil = tukar dua kolom bersebelahan         0/30  =   0.0%
+  D4 plaintext identik kecuali baris terakhir tak penuh   0/30  =   0.0%
+  D6 urutan hasil = geser siklik NILAI indeks kolom     30/30  = 100.0%
+  D7 plaintext hasil = plaintext asli tergeser d posisi  30/30  = 100.0%
+
+Jumlah huruf berbeda: min=85 maks=989 median=447.5 rata2=468.8
+Jumlah kolom berpindah: min=6 maks=6 median=6.0
+
+Tabel 3. Sebaran panjang mod 6 pada kegagalan
+  mod 6 = 2 : 14 percobaan
+  mod 6 = 4 : 16 percobaan
+
+Tiga contoh:
+  panjang 100 percobaan 4 (mod 6 = 4)
+    urutan asli  : 401325
+    urutan hasil : 350214
+    huruf berbeda: 99 (posisi 0..99), batas baris terakhir 96
+    rotasi=False tukar_bersebelahan=False identik_kecuali_baris_terakhir=False
+    geser nilai kolom k=5  geser posisi plaintext d=-1
+  panjang 100 percobaan 7 (mod 6 = 4)
+    urutan asli  : 405321
+    urutan hasil : 354210
+    huruf berbeda: 99 (posisi 0..99), batas baris terakhir 96
+    rotasi=False tukar_bersebelahan=False identik_kecuali_baris_terakhir=False
+    geser nilai kolom k=5  geser posisi plaintext d=-1
+  panjang 100 percobaan 17 (mod 6 = 4)
+    urutan asli  : 153240
+    urutan hasil : 042135
+    huruf berbeda: 96 (posisi 0..99), batas baris terakhir 96
+    rotasi=False tukar_bersebelahan=False identik_kecuali_baris_terakhir=False
+    geser nilai kolom k=5  geser posisi plaintext d=-1
+
+KESIMPULAN (berdasarkan angka di atas, tanpa tambahan tafsir)
+  D1 huruf beda menumpuk di baris terakhir : tidak didukung (0/30 = 0.0%)
+  D2 rotasi urutan kolom                   : tidak didukung (1/30 = 3.3%)
+  D3 tukar dua kolom bersebelahan          : tidak didukung (0/30 = 0.0%)
+  D4 identik kecuali baris terakhir        : tidak didukung (0/30 = 0.0%)
+  D5 kaitan dengan panjang mod 6           : tidak dapat dipisahkan; keempat panjang yang diuji hanya mencakup mod 6 = 2, 4 (kegagalan muncul pada mod 6 = 2, 4), tidak ada panjang dengan mod 6 = 0 pada data ini
+  D6 geser siklik nilai indeks kolom       : didukung (30/30 = 100.0%)
+  D7 plaintext tergeser d posisi utuh      : didukung (30/30 = 100.0%)
+     sebaran d: d=-5: 1, d=-3: 1, d=-2: 2, d=-1: 13, d=1: 10, d=2: 3

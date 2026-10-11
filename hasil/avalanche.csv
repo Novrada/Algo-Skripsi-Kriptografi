@@ -1,8 +1,8 @@
 Skenario,Avalanche Plaintext (%),Stdev Plaintext (%),Avalanche Kunci (%),Stdev Kunci (%)
 1. Vigenere,0.1,0.0,20.0,0.0
-2. Hill,0.2781,0.0628,24.8361,2.4569
-3. Transposisi Kolom,0.1,0.0,47.83,34.8477
-4. Vigenere + Hill,0.288,0.0314,55.6008,3.4274
+2. Hill,0.2781,0.0628,22.8898,1.8035
+3. Transposisi Kolom,0.1,0.0,67.18,24.2181
+4. Vigenere + Hill,0.2781,0.0628,54.29,2.79
 5. Vigenere + Transposisi,0.1,0.0,20.0,0.0
-6. Hill + Transposisi,0.2781,0.0419,51.2512,21.1041
-7. Vigenere + Hill + Transposisi,0.2781,0.0419,56.2562,3.5067
+6. Hill + Transposisi,0.2781,0.0628,70.3178,25.4709
+7. Vigenere + Hill + Transposisi,0.2781,0.0628,54.29,2.79
